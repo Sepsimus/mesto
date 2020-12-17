@@ -1,0 +1,7 @@
+.profile__info{
+    max-width: 336px;
+    display: flex;
+    justify-content: space-between;
+    color: #ffffff;
+    margin: 22px 0px 0px 30px;
+}
