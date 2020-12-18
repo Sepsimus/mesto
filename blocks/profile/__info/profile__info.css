@@ -5,3 +5,9 @@
     color: #ffffff;
     margin: 22px 0px 0px 30px;
 }
+
+@media screen and (max-width: 767px){
+    .profile__info{
+        max-width: 282px;
+    }
+}
