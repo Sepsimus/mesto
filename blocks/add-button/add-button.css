@@ -4,6 +4,12 @@
     width: 150px;
     height: 50px;
     margin: 35px 0px;
+    transition: opasity 0.35s ease;
+}
+
+.add-button:hover{
+    cursor: url(../../image/cursor.png), pointer;
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 767px){
