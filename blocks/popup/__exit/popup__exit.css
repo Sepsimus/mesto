@@ -1,0 +1,13 @@
+.popup__exit{
+    padding: 0px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    transition: opacity 0.35s ease;
+}
+
+.popup__exit:hover{
+    cursor: url(../../../image/cursor.png), pointer;
+    opacity: 0.6;
+}

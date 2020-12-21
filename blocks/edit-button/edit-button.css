@@ -1,10 +1,11 @@
 .edit-button{
     width: 24px;
     height: 24px;
-    background-image: url(../../image/edit-button.svg);
-    background-repeat: no-repeat;
+    padding: 0px;
+    border: none;
     margin: 15px 0px 34px 18px;
     transition: opacity 0.35s ease;
+    background-color: transparent;
 }
 
 .edit-button:hover{

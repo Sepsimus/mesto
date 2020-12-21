@@ -1,10 +1,16 @@
 .add-button{
-    background-image: url(../../image/add-button.svg);
-    background-repeat: no-repeat;
     width: 150px;
     height: 50px;
     margin: 35px 0px;
     transition: opasity 0.35s ease;
+    padding: 0px;
+    border: none;
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    background-image: url(../../image/add-button__pluse-image.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px 22px;
 }
 
 .add-button:hover{
@@ -14,8 +20,7 @@
 
 @media screen and (max-width: 767px){
     .add-button{
-        background-image: url(../../image/add-button2.svg);
         width: 282px;
-        margin: 35px 0px 0px;
+        background-size: 16px 16px;
     }
 }
