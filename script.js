@@ -11,13 +11,13 @@ let popupWrapper = popup.querySelector('.popup__wrapper');
 let popupExit = popupWrapper.querySelector('.popup__exit');
 
 function openPopup(){
-    popup.classList.remove('popup__none');
+    popup.classList.remove('popup_none');
     popupName.value = profileName.textContent;
     popupStatus.value = profileStatus.textContent;
 }
 
 function closePopup(){
-    popup.classList.add('popup__none');
+    popup.classList.add('popup_none');
 }
 
 editButton.addEventListener('click', openPopup);
