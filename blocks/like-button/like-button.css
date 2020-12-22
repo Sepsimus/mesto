@@ -8,6 +8,10 @@
     background-color: transparent;
 }
 
+.like-button:active{
+    background-image: url(../../image/like-button_active.svg);
+}
+
 .like-button:hover{
     cursor: url(../../image/cursor.png), pointer;
     opacity: 0.6;
