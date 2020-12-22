@@ -10,6 +10,7 @@
 
 .like-button:active{
     background-image: url(../../image/like-button_active.svg);
+    background-repeat: no-repeat;
 }
 
 .like-button:hover{
