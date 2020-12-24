@@ -10,7 +10,6 @@
     <div class="page">
         <header class="header">
             <img class="header__logo" src="./image/header__logo.svg" alt="Место. Россия">
-            <hr class="header__line">
         </header>
 
         <main class="content">
@@ -19,13 +18,13 @@
                     <img class="avatar" src="./image/avatar.jpg" alt="Ваш аватар">
                     <div class="profile__info">
                         <ul class="profile__unnumbered-list">
-                            <li class="profile__list"><p class="profile__name">Жак-Ив Кусто</p></li>
+                            <li class="profile__list"><h1 class="profile__name">Жак-Ив Кусто</h1></li>
                             <li class="profile__list"><p class="profile__status">Исследователь океана</p></li>
                         </ul>
-                        <button class="edit-button"> <img class="edit-button__image" src="./image/edit-button.svg" alt="Кнопка редактирования"> </button>
+                        <button class="profile__edit-button" type="button"> <img src="./image/edit-button.svg" alt="Кнопка редактирования"> </button>
                     </div>
                 </div>
-                <button class="add-button"> </button>
+                <button class="profile__add-button" type="button"> </button>
             </section>
 
             <section class="elements">
@@ -33,7 +32,7 @@
                     <img class="element__image" src="./image/elements__karachaevsk.png" alt="Карачевск">
                     <div class="element__main">
                         <p class="element__title">Карачевск</p>
-                        <button class="like-button"> <img class="like-button__image" src="./image/like-button.svg" alt="Кнопка лайка"> </button>
+                        <button class="element__like-button" type="button"> <img src="./image/like-button.svg" alt="Кнопка лайка"> </button>
                     </div>
                 </div>
 
@@ -41,7 +40,7 @@
                     <img class="element__image" src="./image/elements__elbrus.png" alt="Эльбрус">
                     <div class="element__main">
                         <p class="element__title">Эльбрус</p>
-                        <button class="like-button"> <img class="like-button__image" src="./image/like-button.svg" alt="Кнопка лайка"> </button>
+                        <button class="element__like-button" type="button"> <img src="./image/like-button.svg" alt="Кнопка лайка"> </button>
                     </div>
                 </div>
 
@@ -49,7 +48,7 @@
                     <img class="element__image" src="./image/elements__dombay.png" alt="Домбай">
                     <div class="element__main">
                         <p class="element__title">Домбай</p>
-                        <button class="like-button"> <img class="like-button__image" src="./image/like-button.svg" alt="Кнопка лайка"> </button>
+                        <button class="element__like-button" type="button"> <img src="./image/like-button.svg" alt="Кнопка лайка"> </button>
                     </div>
                 </div>
 
@@ -57,7 +56,7 @@
                     <img class="element__image" src="./image/elements__elbrus.png" alt="Эльбрус">
                     <div class="element__main">
                         <p class="element__title">Эльбрус</p>
-                        <button class="like-button"> <img class="like-button__image" src="./image/like-button.svg" alt="Кнопка лайка"> </button>
+                        <button class="element__like-button" type="button"> <img src="./image/like-button.svg" alt="Кнопка лайка"> </button>
                     </div>
                 </div>
 
@@ -65,7 +64,7 @@
                     <img class="element__image" src="./image/elements__dombay.png" alt="Домбай">
                     <div class="element__main">
                         <p class="element__title">Домбай</p>
-                        <button class="like-button"> <img class="like-button__image" src="./image/like-button.svg" alt="Кнопка лайка"> </button>
+                        <button class="element__like-button" type="button"> <img src="./image/like-button.svg" alt="Кнопка лайка"> </button>
                     </div>
                 </div>
 
@@ -73,29 +72,29 @@
                     <img class="element__image" src="./image/elements__karachaevsk.png" alt="Карачаево-Черкессия">
                     <div class="element__main">
                         <p class="element__title">Карачаево-Черкессия</p>
-                        <button class="like-button"> <img class="like-button__image" src="./image/like-button.svg" alt="Кнопка лайка"> </button>
+                        <button class="element__like-button" type="button"> <img src="./image/like-button.svg" alt="Кнопка лайка"> </button>
                     </div>
                 </div>
             </section>
 
-            <section class="popup popup__none">
-                <div class="popup__wrapper">
-                    <div class="popup__container">
-                        <p class="popup__title">Редактировать профиль</p>
-                        <input class="popup__input popup__input_name" placeholder="Имя" type="text">
-                        <input class="popup__input popup__input_career" placeholder="О себе" type="text">
-                        <button class="popup__save" type="submit">Сохранить</button>
-                    </div> 
-                    <button class="popup__exit"> 
-                        <img class="popup__image" src="./image/popup__exit.svg" alt="кнопка выхода"> 
-                    </button>
-                </div>
-            </section>
         </main>
+        <section class="popup">
+            <div class="popup__wrapper">
+                <form class="popup__container">
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <input class="popup__input popup__input_name" placeholder="Имя" type="text" name="Name">
+                    <input class="popup__input popup__input_career" placeholder="О себе" type="text" name="CareerStatus">
+                    <button class="popup__save" type="submit">Сохранить</button>
+                </form> 
+                <button class="popup__exit" type="button"> 
+                    <img class="popup__image" src="./image/popup__exit.svg" alt="кнопка выхода"> 
+                </button>
+            </div>
+        </section>
         <footer class="footer">
             <p class="footer__copyright"> &copy; 2020 Mesto Russia</p>
         </footer>
     </div>
-    <script src="./script.js"></script>
+    <script src="./scripts/script.js"></script>
 </body>
 </html>

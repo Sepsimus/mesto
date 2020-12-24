@@ -6,10 +6,12 @@
     line-height: 48px; 
     margin: 0px;
     margin-bottom: 5px;
+    max-width: 294px;
 }
 
 @media screen and (max-width: 767px){
     .profile__name{
+        max-width: 189px;
         font-size: 27px;
         line-height: 33px;
         text-align: center;

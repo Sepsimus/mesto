@@ -9,6 +9,7 @@
     text-align: center;
     color: #ffffff;
     transition: opacity 0.35 ease;
+    border: none;
 }
 
 .popup__save:hover{

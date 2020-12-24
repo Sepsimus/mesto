@@ -1,9 +1,17 @@
 .popup__input{
     border: none;
-    min-height: 27px;
+    padding-bottom: 9px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     margin-left: 36px;
     margin-right: 36px;
+}
+
+.popup__input:nth-of-type(1){
+    margin-top: 54px;
+}
+
+.popup__input:nth-of-type(2){
+    margin-top: 30px;
 }
 
 .popup__input::placeholder{
@@ -18,5 +26,9 @@
     .popup__input{
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .popup__input:nth-of-type(1){
+        margin-top: 75px;
     }
 }
