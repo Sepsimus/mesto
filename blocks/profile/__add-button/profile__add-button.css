@@ -1,4 +1,4 @@
-.add-button{
+.profile__add-button{
     width: 150px;
     height: 50px;
     margin: 35px 0px;
@@ -6,20 +6,21 @@
     padding: 0px;
     background-color: transparent;
     border: 2px solid #ffffff;
-    background-image: url(../../image/add-button__pluse-image.svg);
+    background-image: url(../../../image/add-button__pluse-image.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 22px 22px;
 }
 
-.add-button:hover{
-    cursor: url(../../image/cursor.png), pointer;
+.profile__add-button:hover{
+    cursor: url(../../../image/cursor.png), pointer;
     opacity: 0.6;
 }
 
 @media screen and (max-width: 767px){
-    .add-button{
+    .profile__add-button{
         width: 282px;
         background-size: 16px 16px;
+        margin: 35px 0px 0px 
     }
 }

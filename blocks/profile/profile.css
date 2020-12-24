@@ -9,6 +9,6 @@
     .profile{
         flex-direction: column;
         align-items: center;
-        margin: 0px auto 36px;
+        margin: 0px auto;
     }
 }
