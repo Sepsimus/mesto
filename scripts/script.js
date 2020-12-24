@@ -10,7 +10,7 @@ let popupStatus = document.querySelector('.popup__input_career');
 let popupWrapper = popup.querySelector('.popup__wrapper');
 let popupExit = popupWrapper.querySelector('.popup__exit');
 // Находим форму в DOM
-let formElement = document.querySelector('.popup__save');// Воспользуйтесь методом querySelector()
+let formElement = document.querySelector('.popup__container');// Воспользуйтесь методом querySelector()
 
 
 function openPopup(){
