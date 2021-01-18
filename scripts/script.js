@@ -64,10 +64,12 @@ const addButton = document.querySelector('.profile__add-button');
 const popup = document.querySelectorAll('.popup');
 const popupName = document.querySelectorAll('.popup__input')[0];
 const popupStatus = document.querySelectorAll('.popup__input')[1];
+const popupCardsName = document.querySelectorAll('.popup__input')[2];
+const popupLink = document.querySelectorAll('.popup__input')[3];
 const popupExit = document.querySelectorAll('.popup__exit');
 
 // Находим форму в DOM
-const formElement = document.querySelector('.popup__container');// Воспользуйтесь методом querySelector()
+const formElement = document.querySelectorAll('.popup__container');// Воспользуйтесь методом querySelector()
 
 function baseContent(item){
     item.forEach(function(item){
@@ -114,6 +116,18 @@ function handleFormSubmit (evt) {
     closePopup();
 };
 
+function cardsFormSubmit(evt){
+    evt.preventDefault();
+    const contentCards = elementTemplate.cloneNode(true);
+    contentCards.querySelector('.element__image').src = popupLink.value;
+    contentCards.querySelector('.element__image').alt = popupCardsName.value;
+    contentCards.querySelector('.element__title').textContent = popupCardsName.value;
+    elements.prepend(contentCards);
+    closePopup();
+    popupLink.value = "";
+    popupCardsName.value = "";
+};
+
 baseContent(initialCards);
 
 editButton.addEventListener('click', openProfilePopup);
@@ -124,4 +138,5 @@ popupExit.forEach(function(item){
 });
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', handleFormSubmit);
+formElement[0].addEventListener('submit', handleFormSubmit);
+formElement[1].addEventListener('submit', cardsFormSubmit);
