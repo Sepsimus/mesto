@@ -78,6 +78,9 @@ function baseContent(item){
         contentCards.querySelector('.element__image').alt = item.name;
         contentCards.querySelector('.element__title').textContent = item.name;
         contentCards.querySelector('.element__delete-button').addEventListener('click', deleteCard);
+        contentCards.querySelectorAll('.element__like-button').forEach(function (item){
+            item.addEventListener('click', likeActive)
+        });
         elements.append(contentCards);
     }
 )};
@@ -101,6 +104,9 @@ function deleteCard(evt){
     evt.target.closest('.element').remove();
 };
 
+function likeActive(evt){
+    evt.target.style.background = "url(./image/like-button_active.svg)";
+};
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function handleFormSubmit (evt) {
@@ -127,6 +133,7 @@ function cardsFormSubmit(evt){
     contentCards.querySelector('.element__image').alt = popupCardsName.value;
     contentCards.querySelector('.element__title').textContent = popupCardsName.value;
     contentCards.querySelector('.element__delete-button').addEventListener('click', deleteCard);
+    contentCards.querySelector('.element__like-button').addEventListener('click', likeActive);
     elements.prepend(contentCards);
     closePopup();
     popupLink.value = "";

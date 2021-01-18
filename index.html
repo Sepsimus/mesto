@@ -34,7 +34,7 @@
                         <img class="element__image">
                         <div class="element__main">
                             <p class="element__title"></p>
-                            <button class="element__like-button" type="button"> <!-- <img src="./image/like-button.svg" alt="Кнопка лайка"> --> </button>
+                            <button class="element__like-button" type="button"> <!-- <img class="element__hidden-like" src="./image/like-button_active.svg" alt="Кнопка лайка"> --> </button>
                         </div>
                     </div>
                 </template>
@@ -51,6 +51,18 @@
                     <input class="popup__input">
                     <button class="popup__save" type="submit"></button>
                 </form> 
+                <button class="popup__exit" type="button"> 
+                    <img class="popup__image" src="./image/popup__exit.svg" alt="кнопка выхода"> 
+                </button>
+            </div>
+            </div>
+        </template>
+
+        <template id="cards-popup">
+            <div class="popup">
+                <div class="popup__wrapper">
+                    <div class="popup__main-image"></div> 
+                    <p class="popup__subtitle"></p>
                 <button class="popup__exit" type="button"> 
                     <img class="popup__image" src="./image/popup__exit.svg" alt="кнопка выхода"> 
                 </button>
