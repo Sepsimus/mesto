@@ -1,5 +1,33 @@
+const initialCards = [
+    {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+  ]; 
+
 const elements = document.querySelector('.elements');
 
+const elementTemplate = document.querySelector('#element').content;
 const popupTemplate = document.querySelector('#popup').content;
 
 const profileEdit = popupTemplate.cloneNode(true);
@@ -41,21 +69,30 @@ const popupExit = document.querySelectorAll('.popup__exit');
 // Находим форму в DOM
 const formElement = document.querySelector('.popup__container');// Воспользуйтесь методом querySelector()
 
+function baseContent(item){
+    item.forEach(function(item){
+        const contentCards = elementTemplate.cloneNode(true);
+        contentCards.querySelector('.element__image').src = item.link;
+        contentCards.querySelector('.element__image').alt = item.name;
+        contentCards.querySelector('.element__title').textContent = item.name;
+        elements.append(contentCards);
+    }
+)};
 
 function openProfilePopup(){
     popup[0].classList.add('popup_opened');
     popupName.value = profileName.textContent;
     popupStatus.value = profileStatus.textContent;
-}
+};
 
 function openPlacePopup(){
     popup[1].classList.add('popup_opened');
-}
+};
 
 function closePopup(){
     popup[0].classList.remove('popup_opened');
     popup[1].classList.remove('popup_opened');
-}
+};
 
 
 // Обработчик «отправки» формы, хотя пока
@@ -75,7 +112,9 @@ function handleFormSubmit (evt) {
 
     // Вставьте новые значения с помощью textContent
     closePopup();
-}
+};
+
+baseContent(initialCards);
 
 editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', openPlacePopup);
