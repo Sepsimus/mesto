@@ -136,6 +136,7 @@ addButton.addEventListener('click', openPlacePopup);
 popupExit.forEach(function(item){
     item.addEventListener('click', closePopup);
 });
+
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement[0].addEventListener('submit', handleFormSubmit);
