@@ -77,6 +77,7 @@ function baseContent(item){
         contentCards.querySelector('.element__image').src = item.link;
         contentCards.querySelector('.element__image').alt = item.name;
         contentCards.querySelector('.element__title').textContent = item.name;
+        contentCards.querySelector('.element__delete-button').addEventListener('click', deleteCard);
         elements.append(contentCards);
     }
 )};
@@ -96,6 +97,9 @@ function closePopup(){
     popup[1].classList.remove('popup_opened');
 };
 
+function deleteCard(evt){
+    evt.target.closest('.element').remove();
+};
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
@@ -122,6 +126,7 @@ function cardsFormSubmit(evt){
     contentCards.querySelector('.element__image').src = popupLink.value;
     contentCards.querySelector('.element__image').alt = popupCardsName.value;
     contentCards.querySelector('.element__title').textContent = popupCardsName.value;
+    contentCards.querySelector('.element__delete-button').addEventListener('click', deleteCard);
     elements.prepend(contentCards);
     closePopup();
     popupLink.value = "";
