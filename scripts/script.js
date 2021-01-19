@@ -29,7 +29,6 @@ const elements = document.querySelector('.elements');
 
 const elementTemplate = document.querySelector('#element').content;
 const popupTemplate = document.querySelector('#popup').content;
-const openCardsPopupTemplate = document.querySelector('#cards-popup').content;
 
 const profileEdit = popupTemplate.cloneNode(true);
 
@@ -53,11 +52,8 @@ placeEdit.querySelectorAll('.popup__input')[1].name = 'link';
 placeEdit.querySelectorAll('.popup__input').type = 'text';
 placeEdit.querySelector('.popup__save').textContent = 'Создать';
 
-const openCardPopup = openCardsPopupTemplate.cloneNode(true);
-
 elements.append(profileEdit);
 elements.append(placeEdit);
-elements.append(openCardPopup);
 
 const profile = document.querySelector('.profile');
 const profileName = document.querySelector('.profile__name');
@@ -106,12 +102,9 @@ function openCardsPopup(evt){
     let imageLink = evt.target.closest('.element__image').src;
     let imageName = evt.target.closest('.element__image').alt;
 
-    console.log(imageLink);
-    console.log(imageName);
-
-    openCardPopup.querySelector('.popup__main-image').src = imageLink;
-    openCardPopup.querySelector('.popup__main-image').alt = imageName;
-    openCardPopup.querySelector('.popup__subtitle').textContent = imageName;
+    document.querySelector('.popup__main-image').src = imageLink;
+    document.querySelector('.popup__main-image').alt = imageName;
+    document.querySelector('.popup__subtitle').textContent = imageName;
 
     popup[2].classList.add('popup_opened');
 };
