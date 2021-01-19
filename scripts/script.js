@@ -55,10 +55,6 @@ placeEdit.querySelector('.popup__save').textContent = 'Создать';
 
 const openCardPopup = openCardsPopupTemplate.cloneNode(true);
 
-let imageSrc = openCardPopup.querySelector('.popup__main-image').src;
-let imageAlt = openCardPopup.querySelector('.popup__main-image').alt;
-let pTextContent = openCardPopup.querySelector('.popup__subtitle').textContent;
-
 elements.append(profileEdit);
 elements.append(placeEdit);
 elements.append(openCardPopup);
@@ -107,18 +103,17 @@ function openPlacePopup(){
 };
 
 function openCardsPopup(evt){
+    let imageLink = evt.target.closest('.element__image').src;
+    let imageName = evt.target.closest('.element__image').alt;
 
-    const imageLink = evt.target.closest('.element__image').src;
-    const imageName = evt.target.closest('.element__image').alt;
+    console.log(imageLink);
+    console.log(imageName);
 
-    imageSrc = imageLink;
-    imageAlt = imageName;
-    pTextContent = imageName;
+    openCardPopup.querySelector('.popup__main-image').src = imageLink;
+    openCardPopup.querySelector('.popup__main-image').alt = imageName;
+    openCardPopup.querySelector('.popup__subtitle').textContent = imageName;
 
-    console.log(imageSrc);
-    console.log(pTextContent);
-
-    popup[1].classList.add('.popup_opened');
+    popup[2].classList.add('popup_opened');
 };
 
 function closePopup(){
@@ -132,7 +127,7 @@ function deleteCard(evt){
 };
 
 function likeActive(evt){
-    evt.target.style.background = "url(./image/like-button_active.svg)";
+    evt.target.classList.toggle('element__like-button_active');
 };
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
