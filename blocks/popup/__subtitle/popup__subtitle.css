@@ -1,4 +1,5 @@
 .popup__subtitle{
+    max-width: 75vw;
     color: #ffffff;
     font-style: normal;
     font-weight: normal;
