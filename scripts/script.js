@@ -48,24 +48,28 @@ function createCard(itemLink, itemName){
   return contentCards;
 }
 
+function openPopup(popup){
+  popup.closest('.popup').classList.add('popup_opened');
+};
+
 function openProfilePopup(){
   popupName.value = profileName.textContent;
   popupStatus.value = profileStatus.textContent;
-  popupProfile.classList.add('popup_opened');
+  openPopup(popupProfile);
 };
 
 function openPlacePopup(){
-    popupPlace.classList.add('popup_opened');
+  openPopup(popupPlace);
 };
 
 function openCardsPopup(evt){
-    let imageLink = evt.target.closest('.element__image').src;
-    let imageName = evt.target.closest('.element__image').alt;
+    const imageLink = evt.target.closest('.element__image').src;
+    const imageName = evt.target.closest('.element__image').alt;
     popupMainImage.src = imageLink;
     popupMainImage.alt = imageName;
     popupSubtitle.textContent = imageName;
 
-    popupZoom.classList.add('popup_opened');
+    openPopup(popupZoom);
 };
 
 function closePopup(evt){
