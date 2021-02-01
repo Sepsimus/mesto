@@ -50,6 +50,7 @@ function createCard(itemLink, itemName){
 
 function openPopup(popup){
   popup.closest('.popup').classList.add('popup_opened');
+  popup.closest('.popup').addEventListener('click', closePopup);
 };
 
 function openProfilePopup(){
