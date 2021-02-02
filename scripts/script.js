@@ -52,6 +52,10 @@ function createCard(itemLink, itemName){
 
 function openPopup(popup){
   popup.closest('.popup').classList.add('popup_opened');
+  
+  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
+  const buttonElement = popup.querySelector('.popup__save');
+  toggleButtonState(inputList, buttonElement);
 };
 
 function openProfilePopup(){
