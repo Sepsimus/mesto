@@ -27,7 +27,7 @@ const popupExit = document.querySelectorAll('.popup__exit');
 
 const popup = document.querySelectorAll('.popup');
 
-const popupWrapper =document.querySelectorAll('.popup__wrapper');
+const popupPlaceForm = document.forms.placeForm;
 
 elements.addEventListener('click', function(evt){
   if(evt.target.classList.contains('element__like-button')){
@@ -57,19 +57,26 @@ function createCard(itemLink, itemName){
 
 function openPopup(popup){
   popup.closest('.popup').classList.add('popup_opened');
-  
-  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
-  const buttonElement = popup.querySelector('.popup__save');
-  toggleButtonState(inputList, buttonElement);
 };
 
 function openProfilePopup(){
   popupName.value = profileName.textContent;
   popupStatus.value = profileStatus.textContent;
+  const inputList = Array.from(popupProfile.querySelectorAll('.popup__input'));
+  const buttonElement = popupProfile.querySelector('.popup__save');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => 
+    hideError(popupProfile, inputElement));
   openPopup(popupProfile);
 };
 
 function openPlacePopup(){
+  popupPlaceForm.reset();
+  const inputList = Array.from(popupPlace.querySelectorAll('.popup__input'));
+  const buttonElement = popupPlace.querySelector('.popup__save');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => 
+    hideError(popupPlace, inputElement));
   openPopup(popupPlace);
 };
 

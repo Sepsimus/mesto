@@ -1,12 +1,12 @@
 function showError(formElement, element, errorMesage){
-    const searchErrorElement = formElement.querySelector(`.${element.id}-error`)
+    const searchErrorElement = formElement.querySelector(`.${element.id}-error`);
     element.classList.add('popup__input_type_error');
     searchErrorElement.textContent = errorMesage;
     searchErrorElement.classList.add('popup__input-error_active');
 };
 
 function hideError(formElement, element){
-    const searchErrorElement = formElement.querySelector(`.${element.id}-error`)
+    const searchErrorElement = formElement.querySelector(`.${element.id}-error`);
     element.classList.remove('popup__input_type_error');
     searchErrorElement.classList.remove('popup__input-error_active');
     searchErrorElement.textContent = '';
