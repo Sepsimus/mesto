@@ -25,7 +25,9 @@ const popupZoom = document.querySelector('.popup_cardZoom');
 
 const popupExit = document.querySelectorAll('.popup__exit');
 
-const popupEsc = document.querySelectorAll('.popup');
+const popup = document.querySelectorAll('.popup');
+
+const popupWrapper =document.querySelectorAll('.popup__wrapper');
 
 elements.addEventListener('click', function(evt){
   if(evt.target.classList.contains('element__like-button')){
@@ -132,8 +134,16 @@ popupExit.forEach(function(item){
     item.addEventListener('click', closePopup);
 });
 
-popupEsc.forEach(function(item){
+popup.forEach(function(item){
   item.addEventListener('keydown', escPopup);
+});
+
+popup.forEach(function(item){
+  item.addEventListener('click', function(evt){
+  if(evt.target.classList.contains('popup')){
+    closePopup(evt);
+  }
+})
 })
 
 formElementProfile.addEventListener('submit', handleFormSubmit);
