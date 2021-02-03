@@ -58,6 +58,6 @@ function toggleButtonState(inputList, buttonElement){
     else{
         buttonElement.classList.remove('popup__save_inactive');
     }
-}
+};
 
 enableValidation();

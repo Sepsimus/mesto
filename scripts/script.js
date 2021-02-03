@@ -29,6 +29,11 @@ const popup = document.querySelectorAll('.popup');
 
 const popupPlaceForm = document.forms.placeForm;
 
+const inputProfileList = Array.from(popupProfile.querySelectorAll('.popup__input'));
+const buttonProfileElement = popupProfile.querySelector('.popup__save');
+const inputPlaceList = Array.from(popupPlace.querySelectorAll('.popup__input'));
+const buttonPlaceElement = popupPlace.querySelector('.popup__save');
+
 function createBaseContent(items){
     items.forEach(function(cardData){
       const card = createCard(cardData.link, cardData.name)
@@ -60,20 +65,16 @@ function openPopup(popup){
 function openProfilePopup(){
   popupName.value = profileName.textContent;
   popupStatus.value = profileStatus.textContent;
-  const inputList = Array.from(popupProfile.querySelectorAll('.popup__input'));
-  const buttonElement = popupProfile.querySelector('.popup__save');
-  toggleButtonState(inputList, buttonElement);
-  inputList.forEach((inputElement) => 
+  toggleButtonState(inputProfileList, buttonProfileElement);
+  inputProfileList.forEach((inputElement) => 
     hideError(popupProfile, inputElement));
   openPopup(popupProfile);
 };
 
 function openPlacePopup(){
   popupPlaceForm.reset();
-  const inputList = Array.from(popupPlace.querySelectorAll('.popup__input'));
-  const buttonElement = popupPlace.querySelector('.popup__save');
-  toggleButtonState(inputList, buttonElement);
-  inputList.forEach((inputElement) => 
+  toggleButtonState(inputPlaceList, buttonPlaceElement);
+  inputPlaceList.forEach((inputElement) => 
     hideError(popupPlace, inputElement));
   openPopup(popupPlace);
 };
