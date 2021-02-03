@@ -29,15 +29,6 @@ const popup = document.querySelectorAll('.popup');
 
 const popupPlaceForm = document.forms.placeForm;
 
-elements.addEventListener('click', function(evt){
-  if(evt.target.classList.contains('element__like-button')){
-    likeActive(evt);
-  };
-  if(evt.target.classList.contains('element__image')){
-    openCardsPopup(evt);
-  }
-});
-
 function createBaseContent(items){
     items.forEach(function(cardData){
       const card = createCard(cardData.link, cardData.name)
@@ -50,8 +41,14 @@ function createCard(itemLink, itemName){
   const cardsImage = contentCards.querySelector('.element__image');
   cardsImage.src = itemLink;
   cardsImage.alt = itemName;
+  contentCards.querySelectorAll('.element__image').forEach(function(item){ 
+    item.addEventListener('click', openCardsPopup); 
+  }); 
   contentCards.querySelector('.element__title').textContent = itemName;
   contentCards.querySelector('.element__delete-button').addEventListener('click', deleteCard);
+  contentCards.querySelectorAll('.element__like-button').forEach(function (item){ 
+    item.addEventListener('click', likeActive) 
+  }); 
   return contentCards;
 }
 
