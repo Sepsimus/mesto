@@ -54,6 +54,7 @@ function createCard(itemLink, itemName){
 
 function openPopup(popup){
   popup.closest('.popup').classList.add('popup_opened');
+  popup.addEventListener('keydown', escPopup);
 };
 
 function openProfilePopup(){
@@ -89,6 +90,7 @@ function openCardsPopup(evt){
 
 function closePopup(evt){
     evt.target.closest('.popup').classList.remove('popup_opened');
+    evt.target.removeEventListener('keydown', escPopup);
 };
 
 function escPopup(evt){
@@ -136,10 +138,6 @@ popupProfile.addEventListener('click', function(evt){
 
 popupExit.forEach(function(item){
     item.addEventListener('click', closePopup);
-});
-
-popup.forEach(function(item){
-  item.addEventListener('keydown', escPopup);
 });
 
 popup.forEach(function(item){
