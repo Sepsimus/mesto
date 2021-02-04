@@ -29,11 +29,6 @@ const popup = document.querySelectorAll('.popup');
 
 const popupPlaceForm = document.forms.placeForm;
 
-const inputProfileList = Array.from(popupProfile.querySelectorAll('.popup__input'));
-const buttonProfileElement = popupProfile.querySelector('.popup__save');
-const inputPlaceList = Array.from(popupPlace.querySelectorAll('.popup__input'));
-const buttonPlaceElement = popupPlace.querySelector('.popup__save');
-
 function createBaseContent(items){
     items.forEach(function(cardData){
       const card = createCard(cardData.link, cardData.name)
@@ -59,32 +54,39 @@ function createCard(itemLink, itemName){
 
 function openPopup(popup){
   popup.closest('.popup').classList.add('popup_opened');
+
+  const errorList = popup.querySelectorAll('.popup__input-error');
+  const inputList = popup.querySelectorAll('.popup__input');
+
+  errorList.forEach((item) => {
+    item.textContent = "";
+  });
+
+  inputList.forEach((item) => {
+    item.classList.remove('popup__input_type_error')
+  });
+
   popup.addEventListener('keydown', escPopup);
 };
 
 function openProfilePopup(){
   popupName.value = profileName.textContent;
   popupStatus.value = profileStatus.textContent;
-  toggleButtonState(inputProfileList, buttonProfileElement);
-  inputProfileList.forEach((inputElement) => 
-    hideError(popupProfile, inputElement));
+  popupProfile.querySelector('.popup__save').classList.remove('popup__save_inactive');
   openPopup(popupProfile);
 };
 
 function openPlacePopup(){
   popupPlaceForm.reset();
-  toggleButtonState(inputPlaceList, buttonPlaceElement);
-  inputPlaceList.forEach((inputElement) => 
-    hideError(popupPlace, inputElement));
+  popupPlace.querySelector('.popup__save').classList.add('popup__save_inactive');
   openPopup(popupPlace);
 };
 
 function openCardsPopup(evt){
-    const imageLink = evt.target.closest('.element__image').src;
-    const imageName = evt.target.closest('.element__image').alt;
-    popupMainImage.src = imageLink;
-    popupMainImage.alt = imageName;
-    popupSubtitle.textContent = imageName;
+    const imageElement = evt.target.closest('.element__image');
+    popupMainImage.src = imageElement.src;
+    popupMainImage.alt = imageElement.alt;
+    popupSubtitle.textContent = imageElement.alt;
 
     openPopup(popupZoom);
 };
@@ -130,12 +132,6 @@ createBaseContent(initialCards);
 
 editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', openPlacePopup);
-
-popupProfile.addEventListener('click', function(evt){
-  if(evt.target.classList.contains('popup__wrapper')){
-    closePopup(evt);
-  }
-});
 
 popupExit.forEach(function(item){
     item.addEventListener('click', closePopup);
