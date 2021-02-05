@@ -103,7 +103,7 @@ function escPopup(evt){
     allPopup.forEach((item) => {
       item.classList.remove('popup_opened');
     });
-    document.removeEventListener('keydown', escPopup);
+    document.removeEventListener('keyup', escPopup);
   }
 }
 
