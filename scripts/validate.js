@@ -1,3 +1,5 @@
+const popup = document.querySelectorAll('.popup');
+
 function showError(object ,formElement, inputElement, errorMesage){
     const searchErrorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(object.inputErrorClass);
@@ -58,6 +60,21 @@ function toggleButtonState(object, inputList, buttonElement){
     else{
         buttonElement.classList.remove(object.inactiveButtonClass);
     }
+};
+
+function hideOpenError(popup){
+    
+  const errorList = popup.querySelectorAll('.popup__input-error');
+  const inputList = popup.querySelectorAll('.popup__input');
+
+  errorList.forEach((item) => {
+    item.textContent = "";
+  });
+
+  inputList.forEach((item) => {
+    item.classList.remove('popup__input_type_error')
+  });
+  
 };
 
 enableValidation({

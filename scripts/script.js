@@ -58,16 +58,7 @@ function createCard(itemLink, itemName){
 function openPopup(popup){
   popup.closest('.popup').classList.add('popup_opened');
 
-  const errorList = popup.querySelectorAll('.popup__input-error');
-  const inputList = popup.querySelectorAll('.popup__input');
-
-  errorList.forEach((item) => {
-    item.textContent = "";
-  });
-
-  inputList.forEach((item) => {
-    item.classList.remove('popup__input_type_error')
-  });
+  hideOpenError(popup);
 
   document.addEventListener('keyup', escPopup);
 };
