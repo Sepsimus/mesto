@@ -61,8 +61,6 @@ function openPopup(popup){
   const errorList = popup.querySelectorAll('.popup__input-error');
   const inputList = popup.querySelectorAll('.popup__input');
 
-  document.addEventListener('keydown', escPopup);
-
   errorList.forEach((item) => {
     item.textContent = "";
   });
@@ -70,6 +68,8 @@ function openPopup(popup){
   inputList.forEach((item) => {
     item.classList.remove('popup__input_type_error')
   });
+
+  document.addEventListener('keyup', escPopup);
 };
 
 function openProfilePopup(){
