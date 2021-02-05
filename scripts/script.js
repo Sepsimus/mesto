@@ -25,9 +25,12 @@ const popupZoom = document.querySelector('.popup_cardZoom');
 
 const popupExit = document.querySelectorAll('.popup__exit');
 
-const popup = document.querySelectorAll('.popup');
+const allPopup = document.querySelectorAll('.popup');
 
 const popupPlaceForm = document.forms.placeForm;
+
+const profileSaveButton = popupProfile.querySelector('.popup__save');
+const placeSaveButton = popupPlace.querySelector('.popup__save');
 
 function createBaseContent(items){
     items.forEach(function(cardData){
@@ -58,6 +61,8 @@ function openPopup(popup){
   const errorList = popup.querySelectorAll('.popup__input-error');
   const inputList = popup.querySelectorAll('.popup__input');
 
+  document.addEventListener('keydown', escPopup);
+
   errorList.forEach((item) => {
     item.textContent = "";
   });
@@ -65,20 +70,18 @@ function openPopup(popup){
   inputList.forEach((item) => {
     item.classList.remove('popup__input_type_error')
   });
-
-  popup.addEventListener('keydown', escPopup);
 };
 
 function openProfilePopup(){
   popupName.value = profileName.textContent;
   popupStatus.value = profileStatus.textContent;
-  popupProfile.querySelector('.popup__save').classList.remove('popup__save_inactive');
+  profileSaveButton.classList.remove('popup__save_inactive');
   openPopup(popupProfile);
 };
 
 function openPlacePopup(){
   popupPlaceForm.reset();
-  popupPlace.querySelector('.popup__save').classList.add('popup__save_inactive');
+  placeSaveButton.classList.add('popup__save_inactive');
   openPopup(popupPlace);
 };
 
@@ -87,18 +90,21 @@ function openCardsPopup(evt){
     popupMainImage.src = imageElement.src;
     popupMainImage.alt = imageElement.alt;
     popupSubtitle.textContent = imageElement.alt;
-
     openPopup(popupZoom);
 };
 
 function closePopup(evt){
+    document.removeEventListener('keydown', escPopup);
     evt.target.closest('.popup').classList.remove('popup_opened');
-    evt.target.removeEventListener('keydown', escPopup);
 };
 
 function escPopup(evt){
+  evt.preventDefault();
+  console.log(evt.key);
   if(evt.key === 'Escape'){
-    closePopup(evt);
+    allPopup.forEach((item) => {
+      item.classList.remove('popup_opened');
+    })
   }
 }
 
@@ -137,13 +143,13 @@ popupExit.forEach(function(item){
     item.addEventListener('click', closePopup);
 });
 
-popup.forEach(function(item){
+allPopup.forEach(function(item){
   item.addEventListener('click', function(evt){
   if(evt.target.classList.contains('popup')){
     closePopup(evt);
   }
 })
-})
+});
 
 formElementProfile.addEventListener('submit', handleFormSubmit);
 formElementPlace.addEventListener('submit', cardsFormSubmit);
