@@ -94,17 +94,16 @@ function openCardsPopup(evt){
 };
 
 function closePopup(evt){
-    document.removeEventListener('keydown', escPopup);
     evt.target.closest('.popup').classList.remove('popup_opened');
 };
 
 function escPopup(evt){
   evt.preventDefault();
-  console.log(evt.key);
   if(evt.key === 'Escape'){
     allPopup.forEach((item) => {
       item.classList.remove('popup_opened');
-    })
+    });
+    document.removeEventListener('keydown', escPopup);
   }
 }
 
