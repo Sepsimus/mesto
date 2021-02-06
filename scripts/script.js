@@ -52,7 +52,7 @@ function createCard(itemLink, itemName){
 function openPopup(popup){
   popup.closest('.popup').classList.add('popup_opened');
 
-  if(popup.classList.contains('popup__with-input')){
+  if(popup.classList.contains('popup__input-with')){
     hideInputErrors(popup);
   }
 
