@@ -1,4 +1,12 @@
-const popup = document.querySelectorAll('.popup');
+const validationConfig = {
+    formSelector: '.popup__container',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save',
+    inactiveButtonClass: 'popup__save_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    inputError: '.popup__input-error',
+    errorClass: 'popup__input-error_active',
+};
 
 function showError(object ,formElement, inputElement, errorMesage){
     const searchErrorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -62,26 +70,19 @@ function toggleButtonState(object, inputList, buttonElement){
     }
 };
 
-function hideOpenError(popup){
-    
-  const errorList = popup.querySelectorAll('.popup__input-error');
-  const inputList = popup.querySelectorAll('.popup__input');
+function hideInputErrors(popup){
+    //console.log('This popup with input');
+    const errorList = popup.querySelectorAll(validationConfig.inputError);
+    const inputList = popup.querySelectorAll(validationConfig.inputSelector);
 
-  errorList.forEach((item) => {
-    item.textContent = "";
-  });
+    errorList.forEach((item) => {
+        item.textContent = '';
+    });
 
-  inputList.forEach((item) => {
-    item.classList.remove('popup__input_type_error')
-  });
+    inputList.forEach((item) => {
+        item.classList.remove(validationConfig.inputErrorClass)
+    });
   
 };
 
-enableValidation({
-    formSelector: '.popup__container',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save',
-    inactiveButtonClass: 'popup__save_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-});
+enableValidation(validationConfig);
