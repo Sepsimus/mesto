@@ -1,3 +1,13 @@
+const validationConfig = {
+  formSelector: '.popup__container',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  inputError: '.popup__input-error',
+  errorClass: 'popup__input-error_active',
+};
+
 const elements = document.querySelector('.elements');
 
 const elementTemplate = document.querySelector('#element').content;
@@ -59,14 +69,16 @@ function openProfilePopup(){
   popupName.value = profileName.textContent;
   popupStatus.value = profileStatus.textContent;
   profileSaveButton.classList.remove('popup__save_inactive');
-  hideInputErrors(popupProfile);
+  const openPopupValidation = new FormValidation(validationConfig, popupProfile);
+  openPopupValidation.enableValidation();
   openPopup(popupProfile);
 };
 
 function openPlacePopup(){
   popupPlaceForm.reset();
   placeSaveButton.classList.add('popup__save_inactive');
-  hideInputErrors(popupPlace);
+  const openCardsValidation = new FormValidation(validationConfig, popupPlace);
+  openCardsValidation.enableValidation();
   openPopup(popupPlace);
 };
 
