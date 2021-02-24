@@ -10,8 +10,6 @@ const validationConfig = {
 
 const elements = document.querySelector('.elements');
 
-const elementTemplate = document.querySelector('#element').content;
-
 const profile = document.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
 const profileStatus = profile.querySelector('.profile__status');
@@ -42,22 +40,11 @@ const placeSaveButton = popupPlace.querySelector('.popup__save');
 
 function createBaseContent(items){
     items.forEach(function(cardData){
-      const card = createCard(cardData.link, cardData.name)
-      elements.append(card);
+      const card = new Card(cardData.link, cardData.name, '#element');
+      const cardElement = card.createCard();
+      elements.append(cardElement);
     }
 )};
-
-function createCard(itemLink, itemName){
-  const contentCards = elementTemplate.cloneNode(true);
-  const cardsImage = contentCards.querySelector('.element__image');
-  cardsImage.src = itemLink;
-  cardsImage.alt = itemName;
-  contentCards.querySelector('.element__image').addEventListener('click', openCardsPopup);
-  contentCards.querySelector('.element__title').textContent = itemName;
-  contentCards.querySelector('.element__delete-button').addEventListener('click', deleteCard);
-  contentCards.querySelector('.element__like-button').addEventListener('click', likeActive);
-  return contentCards;
-}
 
 function openPopup(popup){
   popup.closest('.popup').classList.add('popup_opened');
@@ -103,14 +90,6 @@ function escPopup(evt){
   }
 }
 
-function deleteCard(evt){
-    evt.target.closest('.element').remove();
-};
-
-function likeActive(evt){
-    evt.target.classList.toggle('element__like-button_active');
-};
-
 function handleFormSubmit (evt) {
     evt.preventDefault();
 
@@ -122,8 +101,9 @@ function handleFormSubmit (evt) {
 
 function cardsFormSubmit(evt){
     evt.preventDefault();
-    const card = createCard(popupLink.value, popupCardsName.value);
-    elements.prepend(card);
+    const card = new Card(popupLink.value, popupCardsName.value, '#element');
+    const cardElement = card.createCard();
+    elements.prepend(cardElement);
     closePopup(popupPlace);
     popupLink.value = "";
     popupCardsName.value = "";
