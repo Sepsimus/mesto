@@ -1,32 +1,5 @@
-import {Card} from './card.js';
-import {FormValidation} from './validate.js';
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+import {Card} from './Card.js';
+import {FormValidation} from './FormValidation.js';
 
 const validationConfig = {
   formSelector: '.popup__container',
@@ -37,6 +10,8 @@ const validationConfig = {
   inputError: '.popup__input-error',
   errorClass: 'popup__input-error_active',
 };
+
+const esc = 'Escape';
 
 const elements = document.querySelector('.elements');
 
@@ -70,9 +45,7 @@ const placeSaveButton = popupPlace.querySelector('.popup__save');
 
 function createBaseContent(items){
     items.forEach(function(cardData){
-      const card = new Card(cardData.link, cardData.name, '#element', openCardsPopup);
-      const cardElement = card.createCard();
-      elements.append(cardElement);
+      elements.append(objCardCreate(cardData.link, cardData.name));
     }
 )};
 
@@ -82,19 +55,24 @@ function openPopup(popup){
   document.addEventListener('keyup', escPopup);
 };
 
+const openPopupValidation = new FormValidation(validationConfig, popupProfile);
+
+
 function openProfilePopup(){
   popupName.value = profileName.textContent;
   popupStatus.value = profileStatus.textContent;
   profileSaveButton.classList.remove('popup__save_inactive');
-  const openPopupValidation = new FormValidation(validationConfig, popupProfile);
+  profileSaveButton.removeAttribute('disabled', 'disabled');
   openPopupValidation.enableValidation();
   openPopup(popupProfile);
 };
 
+const openCardsValidation = new FormValidation(validationConfig, popupPlace);
+
 function openPlacePopup(){
   popupPlaceForm.reset();
   placeSaveButton.classList.add('popup__save_inactive');
-  const openCardsValidation = new FormValidation(validationConfig, popupPlace);
+  placeSaveButton.setAttribute('disabled', 'disabled');
   openCardsValidation.enableValidation();
   openPopup(popupPlace);
 };
@@ -114,7 +92,7 @@ function closePopup(popup){
 
 function escPopup(evt){
   evt.preventDefault();
-  if(evt.key === 'Escape'){
+  if(evt.key === esc){
     const item = document.querySelector('.popup_opened');
     closePopup(item);
   }
@@ -131,12 +109,18 @@ function handleFormSubmit (evt) {
 
 function cardsFormSubmit(evt){
     evt.preventDefault();
-    const card = new Card(popupLink.value, popupCardsName.value, '#element', openCardsPopup);
-    const cardElement = card.createCard();
-    elements.prepend(cardElement);
+    elements.prepend(objCardCreate(popupLink.value, popupCardsName.value));
     closePopup(popupPlace);
     popupLink.value = "";
     popupCardsName.value = "";
+};
+
+
+function objCardCreate(link, name){
+  const card = new Card(link, name, '#element', openCardsPopup);
+  const cardElement = card.createCard();
+
+  return cardElement;
 };
 
 createBaseContent(initialCards);

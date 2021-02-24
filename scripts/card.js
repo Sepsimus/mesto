@@ -9,6 +9,7 @@ export class Card {
     _getTemplate() {
         const contentCards = document.querySelector(this._templateSelector)
         .content
+        .querySelector('.element')
         .cloneNode(true);
 
         return contentCards;
@@ -16,24 +17,20 @@ export class Card {
 
     _setEventListeners(){
         this._card.querySelector('.element__image').addEventListener('click', this._openCardsPopup);
-        
-        this._deleted = this._card.querySelector('.element__delete-button');
-        this._liked = this._card.querySelector('.element__like-button');
-
-        this._deleted.addEventListener('click', () => {
-            this._deleteCard(this._deleted)
+        this._card.querySelector('.element__delete-button').addEventListener('click', () => {
+            this._deleteCard()
         });
-        this._liked.addEventListener('click', () => {
-             this._likeActive(this._liked)
+        this._card.querySelector('.element__like-button').addEventListener('click', () => {
+             this._likeActive()
             });
     }
 
-    _deleteCard(_deleted){
-        _deleted.closest('.element').remove()
+    _deleteCard(){
+        this._card.remove()
     }
 
-    _likeActive(_liked){
-        _liked.classList.toggle('element__like-button_active');
+    _likeActive(){
+        this._card.querySelector('.element__like-button').classList.toggle('element__like-button_active');
     }
 
     createCard() { 
