@@ -14,5 +14,5 @@
 
 .popup__save:hover{
     opacity: 0.8;
-    cursor: url(../../../image/cursor.png), pointer;
+    cursor: pointer;
 }

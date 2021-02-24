@@ -7,5 +7,5 @@
 }
 
 .element__image:hover{
-    cursor: url(../../../image/cursor.png), pointer;
+    cursor: pointer;
 }

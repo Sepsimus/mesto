@@ -9,6 +9,6 @@
 }
 
 .popup__exit:hover{
-    cursor: url(../../../image/cursor.png), pointer;
+    cursor: pointer;
     opacity: 0.6;
 }

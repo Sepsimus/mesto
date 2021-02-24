@@ -9,7 +9,7 @@
 }
 
 .profile__edit-button:hover{
-    cursor: url(../../../image/cursor.png), pointer;
+    cursor: pointer;
     opacity: 0.6;
 }
 
