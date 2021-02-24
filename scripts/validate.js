@@ -1,4 +1,4 @@
-class FormValidation {
+export class FormValidation {
     constructor (data, container)
     {
         this._formSelector = data.formSelector;

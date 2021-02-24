@@ -1,3 +1,33 @@
+import {Card} from './card.js';
+import {FormValidation} from './validate.js';
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
 const validationConfig = {
   formSelector: '.popup__container',
   inputSelector: '.popup__input',
@@ -40,7 +70,7 @@ const placeSaveButton = popupPlace.querySelector('.popup__save');
 
 function createBaseContent(items){
     items.forEach(function(cardData){
-      const card = new Card(cardData.link, cardData.name, '#element');
+      const card = new Card(cardData.link, cardData.name, '#element', openCardsPopup);
       const cardElement = card.createCard();
       elements.append(cardElement);
     }
@@ -101,7 +131,7 @@ function handleFormSubmit (evt) {
 
 function cardsFormSubmit(evt){
     evt.preventDefault();
-    const card = new Card(popupLink.value, popupCardsName.value, '#element');
+    const card = new Card(popupLink.value, popupCardsName.value, '#element', openCardsPopup);
     const cardElement = card.createCard();
     elements.prepend(cardElement);
     closePopup(popupPlace);
