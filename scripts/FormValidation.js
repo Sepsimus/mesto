@@ -63,21 +63,21 @@ export class FormValidation {
         })
     };
 
-    _hideInputErrors(){
-        this._errorList = this._container.querySelectorAll(this._inputError);
-        this._inputList = this._container.querySelectorAll(this._inputSelector);
+    hideInputErrors(){
+        this._errorRoster = this._container.querySelectorAll(this._inputError);
+        this._inputRoster = this._container.querySelectorAll(this._inputSelector);
     
-        this._errorList.forEach((item) => {
+        this._errorRoster.forEach((item) => {
             item.textContent = '';
         });
     
-        this._inputList.forEach((item) => {
+        this._inputRoster.forEach((item) => {
             item.classList.remove(this._inputErrorClass)
         });
     }
 
     enableValidation(){
-        this._hideInputErrors();
+        //this._hideInputErrors();
         this._formElement = this._container.querySelector(this._formSelector);
         this._formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();

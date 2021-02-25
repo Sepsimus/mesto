@@ -56,24 +56,25 @@ function openPopup(popup){
 };
 
 const openPopupValidation = new FormValidation(validationConfig, popupProfile);
-
+openPopupValidation.enableValidation();
 
 function openProfilePopup(){
   popupName.value = profileName.textContent;
   popupStatus.value = profileStatus.textContent;
   profileSaveButton.classList.remove('popup__save_inactive');
   profileSaveButton.removeAttribute('disabled', 'disabled');
-  openPopupValidation.enableValidation();
+  openPopupValidation.hideInputErrors();
   openPopup(popupProfile);
 };
 
 const openCardsValidation = new FormValidation(validationConfig, popupPlace);
+openCardsValidation.enableValidation();
 
 function openPlacePopup(){
   popupPlaceForm.reset();
   placeSaveButton.classList.add('popup__save_inactive');
   placeSaveButton.setAttribute('disabled', 'disabled');
-  openCardsValidation.enableValidation();
+  openCardsValidation.hideInputErrors();
   openPopup(popupPlace);
 };
 
