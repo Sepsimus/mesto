@@ -1,5 +1,6 @@
-import {Card} from './Card.js';
-import {FormValidation} from './FormValidation.js';
+import {Card} from './components/card.js';
+import {FormValidation} from './components/FormValidation.js';
+import PopupWithImage from './components/PopupWithImage.js';
 
 const validationConfig = {
   formSelector: '.popup__container',
@@ -48,11 +49,24 @@ function createBaseContent(items){
       elements.prepend(objCardCreate(cardData.link, cardData.name));
     }
 )};
-
+/*
 function openPopup(popup){
   popup.classList.add('popup_opened');
   document.addEventListener('keyup', escPopup);
 };
+
+function closePopup(popup){
+    document.removeEventListener('keyup', escPopup);
+    popup.classList.remove('popup_opened');
+};
+
+function escPopup(evt){
+  evt.preventDefault();
+  if(evt.key === esc){
+    const item = document.querySelector('.popup_opened');
+    closePopup(item);
+  }
+}*/
 
 const openPopupValidation = new FormValidation(validationConfig, popupProfile);
 openPopupValidation.enableValidation();
@@ -85,19 +99,6 @@ function openCardsPopup(evt){
     openPopup(popupZoom);
 };
 
-function closePopup(popup){
-    document.removeEventListener('keyup', escPopup);
-    popup.classList.remove('popup_opened');
-};
-
-function escPopup(evt){
-  evt.preventDefault();
-  if(evt.key === esc){
-    const item = document.querySelector('.popup_opened');
-    closePopup(item);
-  }
-}
-
 function handleFormSubmit (evt) {
     evt.preventDefault();
 
@@ -115,9 +116,16 @@ function cardsFormSubmit(evt){
     popupCardsName.value = "";
 };
 
+const cardClick = new PopupWithImage({popup: popupZoom});
+cardClick.setEventListeners();
 
 function objCardCreate(link, name){
-  const card = new Card(link, name, '#element', openCardsPopup);
+  const card = new Card({
+    itemLink: link, 
+    itemName: name,
+    templateSelector: '#element', 
+    handleCardClick: cardClick.open.bind(cardClick)
+  });
   const cardElement = card.createCard();
 
   return cardElement;
@@ -127,7 +135,7 @@ createBaseContent(initialCards);
 
 editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', openPlacePopup);
-
+/*
 popups.forEach(function(item){
   item.addEventListener('click', function(evt){
   if(evt.target.classList.contains('popup')){
@@ -139,7 +147,7 @@ popups.forEach(function(item){
   }
 
   });
-});
+});*/
 
 formElementProfile.addEventListener('submit', handleFormSubmit);
 formElementPlace.addEventListener('submit', cardsFormSubmit);

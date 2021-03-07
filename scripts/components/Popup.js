@@ -1,25 +1,26 @@
-class Popup {
-    constructor ({popup}){
+import {esc} from '../utils/constants.js'
+
+export default class Popup {
+    constructor (popup){
         this._popup = popup
     }
 
+    _handleEscClose(evt){
+      console.log(evt.key);
+        if(evt.key === esc){
+          console.log(this.close);
+        }
+      };
+
     open(){
         this._popup.classList.add('popup_opened');
-        document.addEventListener('keyup', this._handleEscClose);
+        document.addEventListener('keyup', this._handleEscClose.bind(Popup));
       };
 
     close(){
-        document.removeEventListener('keyup', this._handleEscClose);
+        document.removeEventListener('keyup', this._handleEscClose.bind(Popup));
         this._popup.classList.remove('popup_opened');
-    };
-
-    _handleEscClose(evt){
-        evt.preventDefault();
-        if(evt.key === esc){
-          const item = document.querySelector('.popup_opened');
-          this.close(item);
-        }
-      }
+      };
 
       setEventListeners(){
           this._popup.addEventListener('click', (evt) => {
