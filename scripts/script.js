@@ -45,13 +45,12 @@ const placeSaveButton = popupPlace.querySelector('.popup__save');
 
 function createBaseContent(items){
     items.forEach(function(cardData){
-      elements.append(objCardCreate(cardData.link, cardData.name));
+      elements.prepend(objCardCreate(cardData.link, cardData.name));
     }
 )};
 
 function openPopup(popup){
-  popup.closest('.popup').classList.add('popup_opened');
-
+  popup.classList.add('popup_opened');
   document.addEventListener('keyup', escPopup);
 };
 
