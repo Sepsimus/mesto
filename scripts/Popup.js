@@ -1,5 +1,5 @@
 class Popup {
-    constructor (popup){
+    constructor ({popup}){
         this._popup = popup
     }
 
