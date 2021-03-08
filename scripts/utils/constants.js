@@ -21,8 +21,8 @@ const validationConfig = {
   const addButton = profile.querySelector('.profile__add-button');
   
   const popupProfile = document.querySelector('.popup_profileEdit');
-  const popupName = popupProfile.querySelector('.popup__input_name');
-  const popupStatus = popupProfile.querySelector('.popup__input_status');
+  export const popupName = popupProfile.querySelector('.popup__input_name');
+  export const popupStatus = popupProfile.querySelector('.popup__input_status');
   const formElementProfile = popupProfile.querySelector('.popup__container_profileEdit');
   
   const popupPlace = document.querySelector('.popup_placeEdit');
