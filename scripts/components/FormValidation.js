@@ -77,7 +77,6 @@ export class FormValidation {
     }
 
     enableValidation(){
-        //this._hideInputErrors();
         this._formElement = this._container.querySelector(this._formSelector);
         this._formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();

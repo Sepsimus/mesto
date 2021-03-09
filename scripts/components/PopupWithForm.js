@@ -28,7 +28,7 @@ export default class PopupWithForm extends Popup {
     }
 
     close(){
-        //this._popup.reset();
+        this._popup.querySelector('.popup__container').reset();
         super.close();
     }
 }

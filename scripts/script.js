@@ -57,7 +57,6 @@ const userInfo = new UserInfo({
   nameSelector: profileName,
   statusSelector: profileStatus 
 });
-userInfo.getUserInfo();
 
 const profilePopup = new PopupWithForm({
   popup: popupProfile,
@@ -68,9 +67,72 @@ const profilePopup = new PopupWithForm({
 
 profilePopup.setEventListeners();
 
-console.log(profilePopup._getInputValues());
+editButton.addEventListener('click', ()=> {
+  profilePopup.open();
+  userInfo.getUserInfo();
+  openPopupValidation.hideInputErrors();
+  profileSaveButton.classList.remove('popup__save_inactive');
+  profileSaveButton.removeAttribute('disabled', 'disabled');
+});
+/*
+const placePopup = new PopupWithForm({
+  popup: popupPlace,
+  handleFormSubmit: (formData) => {
+    const newCards = new Section ({
+      items: formData,
+      renderer: (item) => {
+        const card = new Card({
+          itemLink: formData.placeLink,
+          itemName: formData.placeName,
+          templateSelector: '#element',
+          handleCardClick: cardClick.open.bind(cardClick)
+        });
+        const cardElement = card.createCard();
+        newCards.addItem(cardElement);
+      }
+    },
+    '.elements'),
+  }
+});
 
-editButton.addEventListener('click', profilePopup.open.bind(profilePopup));
+function cardsFormSubmit(evt){
+  evt.preventDefault();
+  elements.prepend(objCardCreate(popupLink.value, popupCardsName.value));
+  closePopup(popupPlace);
+  popupLink.value = "";
+  popupCardsName.value = "";
+};
+*/const placePopup = new PopupWithForm({
+  popup: popupPlace,
+  handleFormSubmit: (formData) => {
+    const newCards = new Section ({
+      items: formData,
+      renderer: (item) => {
+        const card = new Card({
+          itemLink: item.placeLink, 
+          itemName: item.placeName,
+          templateSelector: '#element', 
+          handleCardClick: cardClick.open.bind(cardClick)
+        });
+        const cardElement = card.createCard();
+      
+        newCards.addItem(cardElement);
+      }
+    },
+    '.elements');
+    console.log(formData);
+    newCards.renderItems();
+  }
+});
+
+placePopup.setEventListeners();
+
+addButton.addEventListener('click', () =>{
+  placePopup.open();
+  openCardsValidation.hideInputErrors();
+  placeSaveButton.classList.add('popup__save_inactive');
+  placeSaveButton.setAttribute('disabled', 'disabled');
+});
 
 const cardClick = new PopupWithImage({popup: popupZoom});
 cardClick.setEventListeners();
