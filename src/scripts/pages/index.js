@@ -1,3 +1,10 @@
+import editButtonImage from '../../image/edit-button.svg';
+
+const imageFromHtml = [
+  {name: 'edit-button', link: editButtonImage}
+]
+
+import '../../pages/index.css';
 import {Card} from '../components/card.js';
 import {FormValidation} from '../components/FormValidation.js';
 import PopupWithForm from '../components/PopupWithForm.js';
