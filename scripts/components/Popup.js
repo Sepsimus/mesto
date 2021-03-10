@@ -6,19 +6,24 @@ export default class Popup {
     }
 
     _handleEscClose(evt){
-      console.log(evt.key);
+      //console.log(evt.key);
         if(evt.key === esc){
-          console.log(this.close);
+         // console.log(this.close());
+          this.close();
         }
       };
 
     open(){
         this._popup.classList.add('popup_opened');
-        //document.addEventListener('keyup', this._handleEscClose.bind(Popup));
+        document.addEventListener('keyup', (evt) => {
+          this._handleEscClose(evt);
+        });
       };
 
     close(){
-        //document.removeEventListener('keyup', this._handleEscClose.bind(Popup));
+      document.removeEventListener('keyup', (evt) => {
+        this._handleEscClose(evt);
+      });
         this._popup.classList.remove('popup_opened');
       };
 
