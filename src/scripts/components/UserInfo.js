@@ -1,18 +1,18 @@
-import {popupName, popupStatus} from '../utils/constants.js'
-
 export default class UserInfo {
     constructor({nameSelector, statusSelector}) {
-        this._nameSelector = nameSelector;
-        this._statusSelector = statusSelector;
+        this._profileName = document.querySelector(nameSelector);
+        this._profileStatus = document.querySelector(statusSelector);
     }
 
     getUserInfo() {
-        popupName.value = this._nameSelector.textContent;
-        popupStatus.value = this._statusSelector.textContent;
+        return{
+        name: this._profileName.textContent,
+        status: this._profileStatus.textContent
+       }
     }
 
     setUserInfo(formData) {
-        this._nameSelector.textContent = formData.profileName;
-        this._statusSelector.textContent = formData.profileStatus;
+        this._profileName.textContent = formData.profileName;
+        this._profileStatus.textContent = formData.profileStatus;
     }
 }

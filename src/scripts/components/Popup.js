@@ -1,31 +1,27 @@
 import {esc} from '../utils/constants.js'
 
 export default class Popup {
-    constructor (popup){
-        this._popup = popup
+    constructor (popupSelector){
+        this._popup = document.querySelector(popupSelector);
+        this._functionESC = this._handleEscClose.bind(this);
     }
-
-    _handleEscClose(evt){
-      //console.log(evt.key);
-        if(evt.key === esc){
-         // console.log(this.close());
-          this.close();
-        }
-      };
 
     open(){
         this._popup.classList.add('popup_opened');
-        document.addEventListener('keyup', (evt) => {
-          this._handleEscClose(evt);
-        });
+        document.addEventListener('keyup', this._functionESC);
       };
 
     close(){
-      document.removeEventListener('keyup', (evt) => {
-        this._handleEscClose(evt);
-      });
+      document.removeEventListener('keyup', this._functionESC);
         this._popup.classList.remove('popup_opened');
       };
+
+      _handleEscClose(evt){
+        console.log(evt.key);
+          if(evt.key === esc){
+            this.close();
+          }
+        };
 
       setEventListeners(){
           this._popup.addEventListener('click', (evt) => {

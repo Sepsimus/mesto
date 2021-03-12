@@ -76,6 +76,16 @@ export class FormValidation {
         });
     }
 
+    disableSubmitButton(isGrid){
+        if (isGrid){
+            this._container.querySelector(this._submitButtonSelector).classList.remove(this._inactiveButtonClass);
+            this._container.querySelector(this._submitButtonSelector).removeAttribute('disabled', 'disabled');
+        }else{
+            this._container.querySelector(this._submitButtonSelector).classList.add(this._inactiveButtonClass);
+            this._container.querySelector(this._submitButtonSelector).setAttribute('disabled', 'disabled');
+        }
+    }
+
     enableValidation(){
         this._formElement = this._container.querySelector(this._formSelector);
         this._formElement.addEventListener('submit', (evt) => {
