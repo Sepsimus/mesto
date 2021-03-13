@@ -48,7 +48,6 @@ editButton.addEventListener('click', ()=> {
   popupName.value = inputData.name;
   popupStatus.value = inputData.status;
   openPopupValidation.hideInputErrors();
-  openPopupValidation.disableSubmitButton(true);
 });
 
 const placePopup = new PopupWithForm({
@@ -64,7 +63,6 @@ placePopup.setEventListeners();
 addButton.addEventListener('click', () =>{
   placePopup.open();
   openCardsValidation.hideInputErrors();
-  openCardsValidation.disableSubmitButton(false);
 });
 
 const cardClick = new PopupWithImage({

@@ -67,16 +67,7 @@ export class FormValidation {
         this._inputList.forEach((input) => {
             this._hideError(input)
         });
-    }
-
-    disableSubmitButton(isGrid){
-        if (isGrid){
-            this._container.querySelector(this._submitButtonSelector).classList.remove(this._inactiveButtonClass);
-            this._container.querySelector(this._submitButtonSelector).removeAttribute('disabled', 'disabled');
-        }else{
-            this._container.querySelector(this._submitButtonSelector).classList.add(this._inactiveButtonClass);
-            this._container.querySelector(this._submitButtonSelector).setAttribute('disabled', 'disabled');
-        }
+        this._toggleButtonState(this._inputList, this._buttonElement);
     }
 
     enableValidation(){
