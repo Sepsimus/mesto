@@ -64,15 +64,8 @@ export class FormValidation {
     };
 
     hideInputErrors(){
-        this._errorRoster = this._container.querySelectorAll(this._inputError);
-        this._inputRoster = this._container.querySelectorAll(this._inputSelector);
-    
-        this._errorRoster.forEach((item) => {
-            item.textContent = '';
-        });
-    
-        this._inputRoster.forEach((item) => {
-            item.classList.remove(this._inputErrorClass)
+        this._inputList.forEach((input) => {
+            this._hideError(input)
         });
     }
 
