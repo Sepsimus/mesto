@@ -1,9 +1,3 @@
-import editButtonImage from '../image/edit-button.svg';
-
-const imageFromHtml = [
-  {name: 'edit-button', link: editButtonImage}
-]
-
 import './index.css';
 import {Card} from '../scripts/components/card.js';
 import {FormValidation} from '../scripts/components/FormValidation.js';
@@ -11,16 +5,70 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import Section from '../scripts/components/Section.js';
 import UserInfo from '../scripts/components/UserInfo.js';
+import Api from '../scripts/components/Api.js';
 import {
   initialCards,
   validationConfig,
   popupName,
   editButton,
   addButton,
+  profileName,
+  profileStatus,
   popupProfile,
   popupPlace,
-  popupStatus
+  popupStatus,
+  avatar
 } from '../scripts/utils/constants.js'
+import PopupWithConfirm from '../scripts/components/popupWithConfirm';
+
+//---------------------------------------------------------
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-21',
+  headers: {
+    authorization: '2aa5c816-8b07-4613-97bf-d801be8b799e',
+    'Content-Type': 'application/json',
+  }
+});
+
+api.userInfo()
+.then((res) => {
+  if(res.ok){  
+    return res.json();
+    }
+    return Promise.reject(res.status)
+})
+.then((result) => {
+    console.log(result._id);
+    avatar.src = result.avatar;
+    profileName.textContent = result.name;
+    profileStatus.textContent = result.about;
+})
+.catch((err) => {
+    console.log(`Ошибка:${err}. Запрос не выполнен`);
+});
+
+api.getInitialCards()
+.then((res) => {
+    if(res.ok){  
+      return res.json();
+      }
+      return Promise.reject(res.status)
+  })
+  .then((result) => {
+    console.log("result");
+    result.forEach(item => {
+      console.log(item.owner._id)
+      baseContent.addBaseItem(createCard(item, cardClick, popupDelConfirm));
+    });
+
+})
+.catch((err) => {
+    console.log(`Ошибка:${err}. Запрос не выполнен`);
+})
+
+
+//------------------------------------
 
 const openPopupValidation = new FormValidation(validationConfig, popupProfile);
 openPopupValidation.enableValidation();
@@ -36,7 +84,20 @@ const userInfo = new UserInfo({
 const profilePopup = new PopupWithForm({
   popupSelector: '.popup_profileEdit',
   handleFormSubmit: (formData) => {
-    userInfo.setUserInfo(formData);
+    api.editProfile(JSON.stringify(formData))
+    .then((res) => {
+      if(res.ok){  
+        return res.json();
+        }
+        return Promise.reject(res.status)
+    })
+    .then((result) => {
+        profileName.textContent = result.name;
+        profileStatus.textContent = result.about;
+    })
+    .catch((err) => {
+        console.log(`Ошибка:${err}. Запрос не выполнен`);
+    });
   }
 });
 
@@ -53,11 +114,20 @@ editButton.addEventListener('click', ()=> {
 const placePopup = new PopupWithForm({
   popupSelector: '.popup_placeEdit',
   handleFormSubmit: (formData) => {
-        baseContent.addItem(createCard(formData, cardClick));
-      }
-    },
-    '.elements');
-
+      baseContent.addItem(createCard(formData, cardClick, popupDelConfirm));
+      api.addCard(JSON.stringify(formData))
+      .then((res) => {
+        if(res.ok){  
+          return res.json();
+          }
+          return Promise.reject(res.status)
+      })
+      .catch((err) => {
+          console.log(`Ошибка:${err}. Запрос не выполнен`);
+      });
+  }
+});
+    
 placePopup.setEventListeners();
 
 addButton.addEventListener('click', () =>{
@@ -72,22 +142,23 @@ const cardClick = new PopupWithImage({
 });
 cardClick.setEventListeners();
 
-const baseContent = new Section ({
-  items: initialCards,
-  renderer: (item) => {
-    baseContent.addItem(createCard(item, cardClick));
-  }
-},
+const baseContent = new Section ({},
 '.elements');
 
-function createCard(data, handleCardSubmit){
+function createCard(data, handleCardSubmit, handleDeleteCardClick){
   const card = new Card({
-    itemLink: data.placeLink,
-    itemName: data.placeName,
+    itemLink: data.link,
+    itemName: data.name,
+    itemLike: data.likes.length,
     templateSelector: '#element', 
-    handleCardClick: handleCardSubmit.open.bind(handleCardSubmit)
+    handleCardClick: handleCardSubmit.open.bind(handleCardSubmit),
+    handleDeleteCardClick: handleDeleteCardClick.open.bind(handleDeleteCardClick)
   });
   return card.createCard();
 };
 
-baseContent.renderItems();
+const popupDelConfirm = new PopupWithConfirm({
+  popupSelector: '.popup_deleteConfirm',
+  handleFormSubmit:() => {console.log("delete")},//delete запрос,
+});
+popupDelConfirm.setEventListeners();

@@ -2,9 +2,9 @@
     background: url(../../../image/like-button.svg);
     background-repeat: no-repeat;
     background-position: center;
-    width: 20px;
+    width: 22px;
     height: 18px;
-    margin: 31px 21px 31px 0px;
+    margin: 0px auto;
     transition: opacity 0.35s ease;
     padding: 0px;
     border: none;

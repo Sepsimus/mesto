@@ -15,11 +15,11 @@
         <main class="content">
             <section class="profile">
                 <div class="profile__content">
-                    <img class="avatar" src="<%=require('./image/avatar.jpg')%>" alt="Ваш аватар">
+                    <img class="avatar" src="#" alt="Ваш аватар">
                     <div class="profile__info">
                         <ul class="profile__unnumbered-list">
-                            <li class="profile__list"><h1 class="profile__name">Жак-Ив Кусто</h1></li>
-                            <li class="profile__list"><p class="profile__status">Исследователь океана</p></li>
+                            <li class="profile__list"><h1 class="profile__name"></h1></li>
+                            <li class="profile__list"><p class="profile__status"></p></li>
                         </ul>
                         <button class="profile__edit-button" type="button"> <img src="<%=require('./image/edit-button.svg')%>" alt="Кнопка редактирования"> </button>
                     </div>
@@ -51,9 +51,9 @@
         <div class="popup__wrapper">
         <form class="popup__container popup__container_profileEdit" name="profileForm" novalidate>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <input id="name-input" class="popup__input popup__input_name" placeholder="Имя" name="profileName" type="text" minlength="2" maxlength="40" required>
+            <input id="name-input" class="popup__input popup__input_name" placeholder="Имя" name="name" type="text" minlength="2" maxlength="40" required>
             <span class="name-input-error popup__input-error"></span>
-            <input id="status-input" class="popup__input popup__input_status" placeholder="О себе" name="profileStatus" type="text" minlength="2" maxlength="200" required>
+            <input id="status-input" class="popup__input popup__input_status" placeholder="О себе" name="about" type="text" minlength="2" maxlength="200" required>
             <span class="status-input-error popup__input-error"></span>
             <button class="popup__save" type="submit">Сохранить</button>
         </form> 
@@ -66,11 +66,22 @@
         <div class="popup__wrapper">
         <form class="popup__container popup__container_placeEdit" name="placeForm" novalidate>
             <h2 class="popup__title">Новое место</h2>
-            <input id="place-name-input" class="popup__input popup__input_place-name" placeholder="Название" name="placeName" type="text" minlength="2" maxlength="30" required>
+            <input id="place-name-input" class="popup__input popup__input_place-name" placeholder="Название" name="name" type="text" minlength="2" maxlength="30" required>
             <span class="place-name-input-error popup__input-error"></span>
-            <input id="place-link-input" class="popup__input popup__input_place-link" placeholder="Ссылка на картинку" name="placeLink" type="url" required>
+            <input id="place-link-input" class="popup__input popup__input_place-link" placeholder="Ссылка на картинку" name="link" type="url" required>
             <span class="place-link-input-error popup__input-error"></span>
             <button class="popup__save" type="submit">Создать</button>
+        </form> 
+        <button class="popup__exit" type="button"> 
+        </button>
+    </div>
+    </div>
+
+    <div class="popup popup_deleteConfirm">
+        <div class="popup__wrapper">
+        <form class="popup__container popup__container_deleteConfirm" name="deleteConfirmForm" novalidate>
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button class="popup__save" type="submit">Да</button>
         </form> 
         <button class="popup__exit" type="button"> 
         </button>
@@ -85,7 +96,10 @@
             <img class="element__image" src="#" alt="#">
             <div class="element__main">
                 <p class="element__title"></p>
-                <button class="element__like-button" type="button"></button>
+                <div class="element__like-space">
+                    <button class="element__like-button" type="button"></button>
+                    <p class="element__like-counter"></p>
+                </div>
             </div>
         </div>
     </template>
