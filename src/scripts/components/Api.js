@@ -43,13 +43,57 @@ export default class Api {
     }
 
     deleteCard(delInquiry){
-        return fetch(`${this._baseUrl}/cards/${delInquiry}`, {
+        fetch(`${this._baseUrl}/cards/${delInquiry}`, {
             method: 'DELETE',
             headers: {
                 authorization: this._authorization,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
+    }
+
+    likeCard(putInquiry, likeCounter){
+        fetch(`${this._baseUrl}/cards/likes/${putInquiry}`, {
+            method: 'PUT',
+            headers: {
+                authorization: this._authorization,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then((res) => {
+            if(res.ok){  
+              return res.json();
+              }
+              return Promise.reject(res.status)
+          })
+          .then((result) => {
+            likeCounter.textContent = result.likes.length;
+            })
+          .catch((err) => {
+              console.log(`Ошибка:${err}. Запрос не выполнен`);
+          });
+    }
+
+    removeLikeCard(delInquiry, likeCounter){
+        fetch(`${this._baseUrl}/cards/likes/${delInquiry}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._authorization,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then((res) => {
+            if(res.ok){  
+              return res.json();
+              }
+              return Promise.reject(res.status)
+          })
+          .then((result) => {
+            likeCounter.textContent = result.likes.length;
+            })
+          .catch((err) => {
+              console.log(`Ошибка:${err}. Запрос не выполнен`);
+          });
     }
 
 }

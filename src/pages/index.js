@@ -7,7 +7,6 @@ import Section from '../scripts/components/Section.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
 import {
-  initialCards,
   validationConfig,
   popupName,
   editButton,
@@ -56,13 +55,8 @@ api.getInitialCards()
   .then((result) => {
     //console.log(result);
     result.forEach(item => {
-      //console.log(item._id)
-      if(item.owner._id === userID.textContent){
-        baseContent.addBaseItem(createCard(true, item, cardClick, popupDelConfirm));
-      }else{
-        baseContent.addBaseItem(createCard(false, item, cardClick, popupDelConfirm));
-      }
-      
+      console.log(item);
+      baseContent.addBaseItem(createCard(item, cardClick, popupDelConfirm, api));
     });
 
 })
@@ -126,7 +120,7 @@ const placePopup = new PopupWithForm({
     })
     .then((result) => {
       //console.log(result);
-      baseContent.addItem(createCard(true, result, cardClick, popupDelConfirm));
+      baseContent.addItem(createCard(result, cardClick, popupDelConfirm, api));
     })
     .catch((err) => {
         console.log(`Ошибка:${err}. Запрос не выполнен`);
@@ -148,19 +142,21 @@ const cardClick = new PopupWithImage({
 });
 cardClick.setEventListeners();
 
-const baseContent = new Section ({},
-'.elements');
+const baseContent = new Section ('.elements');
 
-function createCard(boolean, data, handleCardSubmit, handleDeleteCardClick){
+function createCard(data, handleCardSubmit, handleDeleteCardClick, likeClicker){
   const card = new Card({
-    boolean: boolean,
+    itemOwner: data.owner,
     itemLink: data.link,
     itemName: data.name,
-    itemLike: data.likes.length,
+    itemLike: data.likes,
     itemID: data._id,
     templateSelector: '#element', 
     handleCardClick: handleCardSubmit.open.bind(handleCardSubmit),
-    handleDeleteCardClick: handleDeleteCardClick.open.bind(handleDeleteCardClick)
+    handleDeleteCardClick: handleDeleteCardClick.open.bind(handleDeleteCardClick),
+    handleLikeClick: likeClicker.likeCard.bind(likeClicker),
+    handleRemoveLikeClick: likeClicker.removeLikeCard.bind(likeClicker),
+    userID: userID
   });
   return card.createCard();
 };
