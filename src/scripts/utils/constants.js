@@ -42,6 +42,7 @@ export const validationConfig = {
   export const addButton = profile.querySelector('.profile__add-button');
   export const profileName =  profile.querySelector('.profile__name');
   export const profileStatus = profile.querySelector('.profile__status');
+  export const userID = profile.querySelector('.profile__userID');
 
   export const popupProfile = document.querySelector('.popup_profileEdit');
   export const popupName = popupProfile.querySelector('.popup__input_name');

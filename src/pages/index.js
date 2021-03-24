@@ -14,6 +14,7 @@ import {
   addButton,
   profileName,
   profileStatus,
+  userID,
   popupProfile,
   popupPlace,
   popupStatus,
@@ -25,25 +26,22 @@ import PopupWithConfirm from '../scripts/components/popupWithConfirm';
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-21',
-  headers: {
-    authorization: '2aa5c816-8b07-4613-97bf-d801be8b799e',
-    'Content-Type': 'application/json',
-  }
+  authorization: '2aa5c816-8b07-4613-97bf-d801be8b799e',
 });
 
-api.userInfo()
+api.userServerInfo()
 .then((res) => {
-  if(res.ok){  
+  if(res.ok){
     return res.json();
     }
     return Promise.reject(res.status)
 })
 .then((result) => {
-    console.log(result._id);
+    userID.textContent = result._id;
     avatar.src = result.avatar;
     profileName.textContent = result.name;
     profileStatus.textContent = result.about;
-})
+  })
 .catch((err) => {
     console.log(`Ошибка:${err}. Запрос не выполнен`);
 });
@@ -56,10 +54,15 @@ api.getInitialCards()
       return Promise.reject(res.status)
   })
   .then((result) => {
-    console.log("result");
+    //console.log(result);
     result.forEach(item => {
-      console.log(item.owner._id)
-      baseContent.addBaseItem(createCard(item, cardClick, popupDelConfirm));
+      //console.log(item._id)
+      if(item.owner._id === userID.textContent){
+        baseContent.addBaseItem(createCard(true, item, cardClick, popupDelConfirm));
+      }else{
+        baseContent.addBaseItem(createCard(false, item, cardClick, popupDelConfirm));
+      }
+      
     });
 
 })
@@ -114,17 +117,20 @@ editButton.addEventListener('click', ()=> {
 const placePopup = new PopupWithForm({
   popupSelector: '.popup_placeEdit',
   handleFormSubmit: (formData) => {
-      baseContent.addItem(createCard(formData, cardClick, popupDelConfirm));
-      api.addCard(JSON.stringify(formData))
-      .then((res) => {
-        if(res.ok){  
-          return res.json();
-          }
-          return Promise.reject(res.status)
-      })
-      .catch((err) => {
-          console.log(`Ошибка:${err}. Запрос не выполнен`);
-      });
+    api.addCard(JSON.stringify(formData))
+    .then((res) => {
+      if(res.ok){  
+        return res.json();
+        }
+        return Promise.reject(res.status)
+    })
+    .then((result) => {
+      //console.log(result);
+      baseContent.addItem(createCard(true, result, cardClick, popupDelConfirm));
+    })
+    .catch((err) => {
+        console.log(`Ошибка:${err}. Запрос не выполнен`);
+    });   
   }
 });
     
@@ -145,11 +151,13 @@ cardClick.setEventListeners();
 const baseContent = new Section ({},
 '.elements');
 
-function createCard(data, handleCardSubmit, handleDeleteCardClick){
+function createCard(boolean, data, handleCardSubmit, handleDeleteCardClick){
   const card = new Card({
+    boolean: boolean,
     itemLink: data.link,
     itemName: data.name,
     itemLike: data.likes.length,
+    itemID: data._id,
     templateSelector: '#element', 
     handleCardClick: handleCardSubmit.open.bind(handleCardSubmit),
     handleDeleteCardClick: handleDeleteCardClick.open.bind(handleDeleteCardClick)
@@ -159,6 +167,9 @@ function createCard(data, handleCardSubmit, handleDeleteCardClick){
 
 const popupDelConfirm = new PopupWithConfirm({
   popupSelector: '.popup_deleteConfirm',
-  handleFormSubmit:() => {console.log("delete")},//delete запрос,
+  handleFormSubmit: (delCardID, removeCardElem) => {
+    api.deleteCard(delCardID);
+    removeCardElem.remove();
+  }
 });
 popupDelConfirm.setEventListeners();

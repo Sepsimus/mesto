@@ -15,8 +15,6 @@ export default class PopupWithForm extends Popup {
             this._formValues[input.name] = input.value;
         });
 
-        this._formValues.likes = [];
-
         return this._formValues;
     }
 

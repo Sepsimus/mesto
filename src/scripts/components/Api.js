@@ -1,29 +1,30 @@
 export default class Api {
-    constructor(options){
-        this._options = options;
+    constructor({baseUrl, authorization}){
+        this._baseUrl = baseUrl;
+        this._authorization = authorization;
     }
 
-    userInfo(){
-       return fetch(`${this._options.baseUrl}/users/me`, {
+    userServerInfo(){
+       return fetch(`${this._baseUrl}/users/me`, {
             headers: {
-                authorization: '2aa5c816-8b07-4613-97bf-d801be8b799e'
+                authorization: this._authorization
             }
         })
     }
 
     getInitialCards() {
-        return fetch(`${this._options.baseUrl}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
             headers: {
-                authorization: '2aa5c816-8b07-4613-97bf-d801be8b799e'
+                authorization: this._authorization
             }
         })
     }
 
     editProfile(patchInquiry) {
-        return fetch(`${this._options.baseUrl}/users/me`, {
+        return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: {
-                authorization: '2aa5c816-8b07-4613-97bf-d801be8b799e',
+                authorization: this._authorization,
                 'Content-Type': 'application/json'
             },
             body: patchInquiry
@@ -31,14 +32,24 @@ export default class Api {
     }
 
     addCard(postInquiry) {
-        return fetch(`${this._options.baseUrl}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: {
-                authorization: '2aa5c816-8b07-4613-97bf-d801be8b799e',
+                authorization: this._authorization,
                 'Content-Type': 'application/json'
             },
             body: postInquiry
         }); 
+    }
+
+    deleteCard(delInquiry){
+        return fetch(`${this._baseUrl}/cards/${delInquiry}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._authorization,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
     }
 
 }
