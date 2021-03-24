@@ -17,11 +17,13 @@ import {
   popupProfile,
   popupPlace,
   popupStatus,
-  avatar
+  avatar,
+  popupAvatar,
+  popupProfileSave,
+  popupPlaceSave,
+  popupAvatarSave
 } from '../scripts/utils/constants.js'
 import PopupWithConfirm from '../scripts/components/popupWithConfirm';
-
-//---------------------------------------------------------
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-21',
@@ -53,9 +55,7 @@ api.getInitialCards()
       return Promise.reject(res.status)
   })
   .then((result) => {
-    //console.log(result);
     result.forEach(item => {
-      console.log(item);
       baseContent.addBaseItem(createCard(item, cardClick, popupDelConfirm, api));
     });
 
@@ -64,14 +64,14 @@ api.getInitialCards()
     console.log(`Ошибка:${err}. Запрос не выполнен`);
 })
 
-
-//------------------------------------
-
 const openPopupValidation = new FormValidation(validationConfig, popupProfile);
 openPopupValidation.enableValidation();
 
 const openCardsValidation = new FormValidation(validationConfig, popupPlace);
 openCardsValidation.enableValidation();
+
+const openAvatarValidation = new FormValidation(validationConfig, popupAvatar);
+openAvatarValidation.enableValidation();
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
@@ -81,6 +81,7 @@ const userInfo = new UserInfo({
 const profilePopup = new PopupWithForm({
   popupSelector: '.popup_profileEdit',
   handleFormSubmit: (formData) => {
+    renderLoading(true, popupProfileSave);
     api.editProfile(JSON.stringify(formData))
     .then((res) => {
       if(res.ok){  
@@ -94,7 +95,8 @@ const profilePopup = new PopupWithForm({
     })
     .catch((err) => {
         console.log(`Ошибка:${err}. Запрос не выполнен`);
-    });
+    })
+    .finally (renderLoading(false, popupProfileSave)) 
   }
 });
 
@@ -111,6 +113,7 @@ editButton.addEventListener('click', ()=> {
 const placePopup = new PopupWithForm({
   popupSelector: '.popup_placeEdit',
   handleFormSubmit: (formData) => {
+    renderLoading(true, popupPlaceSave);
     api.addCard(JSON.stringify(formData))
     .then((res) => {
       if(res.ok){  
@@ -119,12 +122,12 @@ const placePopup = new PopupWithForm({
         return Promise.reject(res.status)
     })
     .then((result) => {
-      //console.log(result);
       baseContent.addItem(createCard(result, cardClick, popupDelConfirm, api));
     })
     .catch((err) => {
         console.log(`Ошибка:${err}. Запрос не выполнен`);
-    });   
+    })
+    .finally (renderLoading(false, popupPlaceSave)) 
   }
 });
     
@@ -134,6 +137,34 @@ addButton.addEventListener('click', () =>{
   placePopup.open();
   openCardsValidation.hideInputErrors();
 });
+
+const avatarPopup = new PopupWithForm({
+  popupSelector: '.popup_avatarEdit',
+  handleFormSubmit: (formData) => {
+    renderLoading(true, popupAvatarSave);
+    api.editAvatar(JSON.stringify(formData))
+    .then((res) => {
+      if(res.ok){  
+        return res.json();
+        }
+        return Promise.reject(res.status)
+    })
+    .then((result) => {
+      avatar.src = result.avatar;
+    })
+    .catch((err) => {
+        console.log(`Ошибка:${err}. Запрос не выполнен`);
+    })
+    .finally (renderLoading(false, popupAvatarSave)) 
+  }
+})
+
+avatarPopup.setEventListeners();
+
+avatar.addEventListener('click', () => {
+  avatarPopup.open();
+  openAvatarValidation.hideInputErrors();
+})
 
 const cardClick = new PopupWithImage({
   popupSelector: '.popup_cardZoom',
@@ -160,6 +191,14 @@ function createCard(data, handleCardSubmit, handleDeleteCardClick, likeClicker){
   });
   return card.createCard();
 };
+
+function renderLoading(isLoading, popupSaveButton){
+  if(isLoading){
+    popupSaveButton.textContent = 'Сохранение...'
+  }else{
+    popupSaveButton.textContent = 'Сохранить';
+  }
+}
 
 const popupDelConfirm = new PopupWithConfirm({
   popupSelector: '.popup_deleteConfirm',

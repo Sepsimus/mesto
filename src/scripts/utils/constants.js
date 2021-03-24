@@ -20,7 +20,12 @@ export const validationConfig = {
   export const popupProfile = document.querySelector('.popup_profileEdit');
   export const popupName = popupProfile.querySelector('.popup__input_name');
   export const popupStatus = popupProfile.querySelector('.popup__input_status');
-  
+  export const popupProfileSave = popupProfile.querySelector('.popup__save');
+
   export const popupPlace = document.querySelector('.popup_placeEdit');
+  export const popupPlaceSave = popupPlace.querySelector('.popup__save');
 
   export const avatar = document.querySelector('.avatar');
+
+  export const popupAvatar = document.querySelector('.popup_avatarEdit');
+  export const popupAvatarSave = popupAvatar.querySelector('.popup__save');

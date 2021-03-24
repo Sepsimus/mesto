@@ -96,4 +96,15 @@ export default class Api {
           });
     }
 
+    editAvatar(patchInquiry){
+        return fetch(`${this._baseUrl}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this._authorization,
+                'Content-Type': 'application/json'
+            },
+            body: patchInquiry
+        }); 
+    }
+
 }
