@@ -1,5 +1,5 @@
 import './index.css';
-import {Card} from '../scripts/components/card.js';
+import {Card} from '../scripts/components/Card.js';
 import {FormValidation} from '../scripts/components/FormValidation.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
@@ -11,9 +11,6 @@ import {
   popupName,
   editButton,
   addButton,
-  profileName,
-  profileStatus,
-  userID,
   popupProfile,
   popupPlace,
   popupStatus,
@@ -23,37 +20,22 @@ import {
   popupPlaceSave,
   popupAvatarSave
 } from '../scripts/utils/constants.js'
-import PopupWithConfirm from '../scripts/components/popupWithConfirm';
+import PopupWithConfirm from '../scripts/components/PopupWithConfirm';
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-21',
   authorization: '2aa5c816-8b07-4613-97bf-d801be8b799e',
 });
-
+/*
 api.userServerInfo()
-.then((res) => {
-  if(res.ok){
-    return res.json();
-    }
-    return Promise.reject(res.status)
-})
 .then((result) => {
-    userID.textContent = result._id;
-    avatar.src = result.avatar;
-    profileName.textContent = result.name;
-    profileStatus.textContent = result.about;
-  })
+    userInfo.setUserInfo(result);
+    })
 .catch((err) => {
     console.log(`Ошибка:${err}. Запрос не выполнен`);
 });
 
 api.getInitialCards()
-.then((res) => {
-    if(res.ok){  
-      return res.json();
-      }
-      return Promise.reject(res.status)
-  })
   .then((result) => {
     result.forEach(item => {
       baseContent.addBaseItem(createCard(item, cardClick, popupDelConfirm, api));
@@ -62,6 +44,16 @@ api.getInitialCards()
 })
 .catch((err) => {
     console.log(`Ошибка:${err}. Запрос не выполнен`);
+})*/
+
+const promisesAPI = [api.userServerInfo(), api.getInitialCards()];
+
+Promise.all(promisesAPI)
+.then((results) => {
+  userInfo.setUserInfo(results[0]);
+  results[1].forEach(item => {
+    baseContent.addBaseItem(createCard(item, cardClick, popupDelConfirm, api));
+  });
 })
 
 const openPopupValidation = new FormValidation(validationConfig, popupProfile);
@@ -75,7 +67,8 @@ openAvatarValidation.enableValidation();
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__name',
-  statusSelector: '.profile__status' 
+  statusSelector: '.profile__status',
+  avatar: '.avatar'
 });
 
 const profilePopup = new PopupWithForm({
@@ -83,15 +76,8 @@ const profilePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     renderLoading(true, popupProfileSave);
     api.editProfile(JSON.stringify(formData))
-    .then((res) => {
-      if(res.ok){  
-        return res.json();
-        }
-        return Promise.reject(res.status)
-    })
     .then((result) => {
-        profileName.textContent = result.name;
-        profileStatus.textContent = result.about;
+      userInfo.setUserInfo(result);
     })
     .catch((err) => {
         console.log(`Ошибка:${err}. Запрос не выполнен`);
@@ -115,12 +101,6 @@ const placePopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     renderLoading(true, popupPlaceSave);
     api.addCard(JSON.stringify(formData))
-    .then((res) => {
-      if(res.ok){  
-        return res.json();
-        }
-        return Promise.reject(res.status)
-    })
     .then((result) => {
       baseContent.addItem(createCard(result, cardClick, popupDelConfirm, api));
     })
@@ -143,14 +123,8 @@ const avatarPopup = new PopupWithForm({
   handleFormSubmit: (formData) => {
     renderLoading(true, popupAvatarSave);
     api.editAvatar(JSON.stringify(formData))
-    .then((res) => {
-      if(res.ok){  
-        return res.json();
-        }
-        return Promise.reject(res.status)
-    })
     .then((result) => {
-      avatar.src = result.avatar;
+      userInfo.setUserInfo(result);
     })
     .catch((err) => {
         console.log(`Ошибка:${err}. Запрос не выполнен`);
@@ -173,7 +147,11 @@ const cardClick = new PopupWithImage({
 });
 cardClick.setEventListeners();
 
-const baseContent = new Section ('.elements');
+const baseContent = new Section ({
+  renderer: (item) => { 
+    baseContent.addItem(createCard(item, cardClick)); 
+  } 
+},'.elements');
 
 function createCard(data, handleCardSubmit, handleDeleteCardClick, likeClicker){
   const card = new Card({
@@ -187,7 +165,7 @@ function createCard(data, handleCardSubmit, handleDeleteCardClick, likeClicker){
     handleDeleteCardClick: handleDeleteCardClick.open.bind(handleDeleteCardClick),
     handleLikeClick: likeClicker.likeCard.bind(likeClicker),
     handleRemoveLikeClick: likeClicker.removeLikeCard.bind(likeClicker),
-    userID: userID
+    userID: userInfo.getUserID()
   });
   return card.createCard();
 };

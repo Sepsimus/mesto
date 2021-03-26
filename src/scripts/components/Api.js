@@ -10,6 +10,12 @@ export default class Api {
                 authorization: this._authorization
             }
         })
+        .then((res) => {
+            if(res.ok){
+              return res.json();
+              }
+              return Promise.reject(res.status)
+          })
     }
 
     getInitialCards() {
@@ -18,6 +24,12 @@ export default class Api {
                 authorization: this._authorization
             }
         })
+        .then((res) => {
+            if(res.ok){  
+              return res.json();
+              }
+              return Promise.reject(res.status)
+          })
     }
 
     editProfile(patchInquiry) {
@@ -28,7 +40,13 @@ export default class Api {
                 'Content-Type': 'application/json'
             },
             body: patchInquiry
-        }); 
+        })
+        .then((res) => {
+            if(res.ok){  
+              return res.json();
+              }
+              return Promise.reject(res.status)
+          }) 
     }
 
     addCard(postInquiry) {
@@ -39,7 +57,13 @@ export default class Api {
                 'Content-Type': 'application/json'
             },
             body: postInquiry
-        }); 
+        })
+        .then((res) => {
+            if(res.ok){  
+              return res.json();
+              }
+              return Promise.reject(res.status)
+          })
     }
 
     deleteCard(delInquiry){
@@ -50,6 +74,12 @@ export default class Api {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
+        .then((res) => {
+            if(res.ok){  
+              return res.json();
+              }
+              return Promise.reject(res.status)
+          })
     }
 
     likeCard(putInquiry, likeCounter){
@@ -104,7 +134,13 @@ export default class Api {
                 'Content-Type': 'application/json'
             },
             body: patchInquiry
-        }); 
+        })
+        .then((res) => {
+            if(res.ok){  
+              return res.json();
+              }
+              return Promise.reject(res.status)
+          })
     }
 
 }

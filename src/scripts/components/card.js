@@ -56,14 +56,14 @@ export class Card {
 
     createCard() { 
         this._card = this._getTemplate();
-        if(this._itemOwner._id === this._userID.textContent){
+        if(this._itemOwner._id === this._userID){
             this._card.querySelector('.element__delete-button').classList.add('element__delete-button_visible');
         }
         this._cardImage = this._card.querySelector('.element__image');
         this._cardImage.src = this._itemLink;
         this._cardImage.alt = this._itemName;
         this._itemLike.forEach(like => {
-            if(like._id === this._userID.textContent){
+            if(like._id === this._userID){
                 this._card.querySelector('.element__like-button').classList.add('element__like-button_active');
             }
         });
