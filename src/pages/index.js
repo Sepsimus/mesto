@@ -26,34 +26,16 @@ const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-21',
   authorization: '2aa5c816-8b07-4613-97bf-d801be8b799e',
 });
-/*
-api.userServerInfo()
-.then((result) => {
-    userInfo.setUserInfo(result);
-    })
-.catch((err) => {
-    console.log(`Ошибка:${err}. Запрос не выполнен`);
-});
-
-api.getInitialCards()
-  .then((result) => {
-    result.forEach(item => {
-      baseContent.addBaseItem(createCard(item, cardClick, popupDelConfirm, api));
-    });
-
-})
-.catch((err) => {
-    console.log(`Ошибка:${err}. Запрос не выполнен`);
-})*/
 
 const promisesAPI = [api.userServerInfo(), api.getInitialCards()];
 
 Promise.all(promisesAPI)
 .then((results) => {
   userInfo.setUserInfo(results[0]);
-  results[1].forEach(item => {
-    baseContent.addBaseItem(createCard(item, cardClick, popupDelConfirm, api));
-  });
+  baseContent.renderItems(results[1]);
+})
+.catch((err) => {
+    console.log(`Ошибка:${err}. Запрос не выполнен`);
 })
 
 const openPopupValidation = new FormValidation(validationConfig, popupProfile);
@@ -149,7 +131,7 @@ cardClick.setEventListeners();
 
 const baseContent = new Section ({
   renderer: (item) => { 
-    baseContent.addItem(createCard(item, cardClick)); 
+    baseContent.addBaseItem(createCard(item, cardClick, popupDelConfirm, api)); 
   } 
 },'.elements');
 
